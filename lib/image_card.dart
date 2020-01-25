@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:walls/walls.dart';
 
 class ImageCard extends StatelessWidget {
 
@@ -8,46 +9,58 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(15.0),
-      width: 300,
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0)
-      ),
-      child: Stack(
-        alignment: Alignment.bottomLeft,
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Image.network(
-              link,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MobileWalls(
+              label: label,
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.5),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.all(15.0),
+        width: 300,
+        height: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0)
+        ),
+        child: Stack(
+          alignment: Alignment.bottomLeft,
+          children: <Widget>[
+            ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
+              child: Image.network(
+                link,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  label,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28
+            Container(
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28
+                      ),
                     ),
-                  ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
