@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:walls/image_card.dart';
+import 'package:walls/walls.dart';
+
+import 'nav_bar_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -52,36 +55,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              leading: Icon(
-                Icons.cloud
-              ),
-              title: Text(
-                'Nature',
-              ),
+            NavBarList(
+              icon: Icons.cloud,
+              label: 'Nature',
             ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              leading: Icon(
-                FontAwesome.bandcamp
-              ),
-              title: Text(
-                'Abstract',
-              ),
+            NavBarList(
+              icon: FontAwesome.bandcamp,
+              label: 'Abstract',
             ),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              title: Text(
-                'Anime',
-              ),
-            ),
+            NavBarList(
+              label: 'Anime',
+            )
           ],
         ),
       ),

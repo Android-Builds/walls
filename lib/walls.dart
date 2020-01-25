@@ -4,7 +4,7 @@ class MobileWalls extends StatelessWidget {
 
   MobileWalls({this.label});
 
-  String label;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
