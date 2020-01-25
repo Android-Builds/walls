@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:walls/image_card.dart';
 
 void main() => runApp(MyApp());
 
@@ -84,11 +85,24 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
+      body:Center(
         child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-      ),
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ImageCard(
+                      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLzMmWpvGaEfmGvx_PvIAb4S01F5U-HQEqwb-ICFSS7_4kwJ47&s', 
+                      label: 'Nature'
+                      ),
+                  )
+                ],
+              ),
+            )
+          ],
         ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
       ),
