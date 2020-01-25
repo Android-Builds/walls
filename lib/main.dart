@@ -27,18 +27,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
-        child: Text(
-          'HI'
-        ),
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
       ),
+        ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
         child: Icon(Icons.add),
       ),
     );
