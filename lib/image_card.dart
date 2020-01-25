@@ -3,9 +3,10 @@ import 'package:walls/walls.dart';
 
 class ImageCard extends StatelessWidget {
 
-  ImageCard({@required this.link, @required this.label});
+  ImageCard({@required this.link, @required this.label, this.data});
 
   final String link, label;
+  final List data;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,7 @@ class ImageCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => MobileWalls(
               label: label,
+              data: data,
             ),
           ),
         );
