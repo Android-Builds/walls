@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,16 +36,41 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text(
-                'Walls',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0
+            Container(
+              height: 150.0,
+              child: DrawerHeader(
+                child: Text(
+                  'Walls',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
                 ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              leading: Icon(
+                Icons.cloud
+              ),
+              title: Text(
+                'Nature',
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              leading: Icon(
+                FontAwesome.bandcamp
+              ),
+              title: Text(
+                'Abstract',
               ),
             ),
             ListTile(
@@ -52,15 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pop(context);
               },
               title: Text(
-                'Item 1',
-              ),
-            ),
-                        ListTile(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              title: Text(
-                'Item 1',
+                'Anime',
               ),
             ),
           ],
