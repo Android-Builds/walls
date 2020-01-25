@@ -33,13 +33,13 @@ class MobileWalls extends StatelessWidget {
               SliverPadding(
                 padding: const EdgeInsets.all(10),
                 sliver: SliverGrid.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
                   crossAxisCount: 3,
                   childAspectRatio: (itemWidth / itemHeight),
                   children: List.generate(length, (index){
                     return Center(
-                      child: Image.network(data[index]["largeImageURL"]),
+                      child: Image.network(data[index]["previewURL"]),
                     );
                   }),
                 ),

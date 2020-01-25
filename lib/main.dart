@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:walls/image_card.dart';
@@ -29,14 +28,12 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
 
   Map map;
   List<dynamic> data;
 
   Future getData() async {
-
     var response = await http.get(
     Uri.encodeFull(
       'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=phone+wallpapers&image_type=photo&page=1')
@@ -53,11 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
       map = json.decode(response.body);
       data.addAll(map["hits"]);
     }
+    return data;
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
+    //getData();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
