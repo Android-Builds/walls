@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Expanded(
                     child: ImageCard(
-                      link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLzMmWpvGaEfmGvx_PvIAb4S01F5U-HQEqwb-ICFSS7_4kwJ47&s', 
+                      link: 'https://wallpaperaccess.com/full/200447.jpg', 
                       label: 'Nature'
                       ),
                   )

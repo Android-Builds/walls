@@ -28,7 +28,7 @@ class ImageCard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.5),
               borderRadius: BorderRadius.circular(10.0),
@@ -39,7 +39,11 @@ class ImageCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   label,
-                  style: TextStyle(fontSize: 28)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28
+                    ),
+                  ),
               ],
             ),
           )
