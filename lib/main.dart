@@ -53,11 +53,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return data;
   }
 
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   getData();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ImageCard(
                       link: 'https://wallpaperaccess.com/full/200447.jpg', 
                       label: 'Nature',
-                      data: data,
+                      //data: data,
+                      api: 'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=phone+wallpapers&image_type=photo&page=1',
                       ),
                   ),
                 ],
