@@ -13,6 +13,7 @@ class WallCards extends StatelessWidget {
     final double itemWidth = size.width / 2;
     int itemCount = item.length;
 
+  //TODO: Make Image corners rounded 
   return Padding(
     padding: EdgeInsets.all(10.0),
       child: GridView.count(
@@ -23,6 +24,7 @@ class WallCards extends StatelessWidget {
         children: List.generate(itemCount, (index) {
           return Center(
             child: GestureDetector(
+              //TODO: Add onTap function
               child: CachedNetworkImage(
                 placeholder: (context, url) => CircularProgressIndicator(),
                 imageUrl: item[index]['previewURL'],

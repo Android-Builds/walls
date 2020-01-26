@@ -14,11 +14,6 @@ class MobileWalls extends StatefulWidget {
 
 class _MobileWallsState extends State<MobileWalls> {
   
-  // getURL(){
-  //   return "https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q="+widget.label+"&image_type=photo&page=";
-  // }
-
-  //final String url = widget.api;
   List data = new List();
 
   @override

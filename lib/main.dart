@@ -71,56 +71,78 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body:Center(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ImageCard(
-                      link: 'https://wallpaperaccess.com/full/200447.jpg',
-                      api: prefix+'Nature'+suffix,
-                      label: 'Nature',
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: 20.0,
+          ),
+          child: IntrinsicHeight(
+            child: Column(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ImageCard(
+                            link: 'https://wallpaperaccess.com/full/200447.jpg',
+                            api: prefix+'Nature'+suffix,
+                            label: 'Nature',
+                          ),
+                        ),
+                        Expanded(
+                          child: ImageCard(
+                            link: 'https://wallpapercave.com/wp/wp2679565.jpg',
+                            api: prefix+'Abstract'+suffix,
+                            label: 'Abstract',
+                          ),
                       ),
-                  ),
-                  Expanded(
-                    child: ImageCard(
-                      link: 'https://wallpapercave.com/wp/wp2679565.jpg',
-                      api: prefix+'Abstract'+suffix,
-                      label: 'Abstract',
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                children: <Widget>[
-                  ImageCard(
-                    link: 'https://i.pinimg.com/originals/b1/27/b3/b127b33d81e3f23f9e2dc38064f7fc22.jpg',
-                    api: prefix+'Featured'+suffix,
-                    label: 'Featured',
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    ImageCard(
+                      link: 'https://www.digitalcare.org/wp-content/uploads/2016/11/Free-Desktop-Wallpaper-feature-696x465.jpg',
+                      api: prefix+'Featured'+suffix,
+                      label: 'Featured',
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ImageCard(
-                      link: 'https://wallpaperaccess.com/full/184117.jpg',
-                      api: prefix+'Cars'+suffix,
-                      label: 'Cars',
+              Expanded(
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: ImageCard(
+                        link: 'https://wallpaperaccess.com/full/184117.jpg',
+                        api: prefix+'Cars'+suffix,
+                        label: 'Cars',
+                      ),
                     ),
-                  ),
-                ],
+                    //TODO: Add few more cards
+                    Expanded(
+                      child: ImageCard(
+                        link: 'https://wallpaperaccess.com/full/184117.jpg',
+                        api: prefix+'Cars'+suffix,
+                        label: 'Cars',
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
+          ]
+          ),
         ),
-      ),
+      ));
+    },
+  ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
       ),
