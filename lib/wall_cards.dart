@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:walls/walls.dart';
 
 class WallCards extends StatelessWidget {
    final List item; 

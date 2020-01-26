@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:walls/image_card.dart';
-import 'package:http/http.dart' as http;
 import 'nav_bar_list.dart';
 
 void main() => runApp(MyApp());
@@ -30,38 +28,12 @@ class MyHomePage extends StatefulWidget {
 }
 class _MyHomePageState extends State<MyHomePage> {
 
-  Map map;
-  List<dynamic> data;
-
-  Future getData() async {
-    var response = await http.get(
-    Uri.encodeFull(
-      'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=phone+wallpapers&image_type=photo&page=1')
-    );
-    map = json.decode(response.body);
-    data = map["hits"];
-
-    for(int i=2; i<5; i++)
-    {
-      var response = await http.get(
-      Uri.encodeFull(
-        'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=phone+wallpapers&image_type=photo&page='+i.toString())
-      );
-      map = json.decode(response.body);
-      data.addAll(map["hits"]);
-    }
-    return data;
-  }
-
-  // @override
-  // void initState() {
-  //   getData();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    //getData();
+
+    String prefix = 'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=';
+    String suffix = '&image_type=photo&page=';
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -107,11 +79,41 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Expanded(
                     child: ImageCard(
-                      link: 'https://wallpaperaccess.com/full/200447.jpg', 
+                      link: 'https://wallpaperaccess.com/full/200447.jpg',
+                      api: prefix+'Nature'+suffix,
                       label: 'Nature',
-                      //data: data,
-                      api: 'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=phone+wallpapers&image_type=photo&page=1',
                       ),
+                  ),
+                  Expanded(
+                    child: ImageCard(
+                      link: 'https://wallpapercave.com/wp/wp2679565.jpg',
+                      api: prefix+'Abstract'+suffix,
+                      label: 'Abstract',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  ImageCard(
+                    link: 'https://i.pinimg.com/originals/b1/27/b3/b127b33d81e3f23f9e2dc38064f7fc22.jpg',
+                    api: prefix+'Featured'+suffix,
+                    label: 'Featured',
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: ImageCard(
+                      link: 'https://wallpaperaccess.com/full/184117.jpg',
+                      api: prefix+'Cars'+suffix,
+                      label: 'Cars',
+                    ),
                   ),
                 ],
               ),

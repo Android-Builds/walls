@@ -17,6 +17,7 @@ class ImageCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => MobileWalls(
               label: label,
+              api: api,
             ),
           ),
         );
@@ -38,14 +39,8 @@ class ImageCard extends StatelessWidget {
                 imageUrl: link,
                 width: double.infinity,
                 height: double.infinity,
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.cover,
               )
-              // Image.network(
-              //   link,
-              //   width: double.infinity,
-              //   height: double.infinity,
-              //   fit: BoxFit.cover,
-              // ),
             ),
             Container(
               padding: const EdgeInsets.all(20.0),
