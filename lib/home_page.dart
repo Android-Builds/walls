@@ -1,23 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:walls/constants.dart';
 import 'package:walls/image_card.dart';
-import 'nav_bar_list.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -31,49 +14,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    String prefix = 'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=';
-    String suffix = '&image_type=photo&page=';
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              height: 150.0,
-              child: DrawerHeader(
-                child: Text(
-                  'Walls',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            NavBarList(
-              icon: Icons.cloud,
-              label: 'Nature',
-            ),
-            NavBarList(
-              icon: FontAwesome.bandcamp,
-              label: 'Abstract',
-            ),
-            NavBarList(
-              label: 'Anime',
-            )
-          ],
-        ),
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-      return SingleChildScrollView(
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
         child: ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: 20.0,
@@ -129,9 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     //TODO: Add few more cards
                     Expanded(
                       child: ImageCard(
-                        link: 'https://wallpaperaccess.com/full/184117.jpg',
-                        api: prefix+'Cars'+suffix,
-                        label: 'Cars',
+                        link: 'https://c0.wallpaperflare.com/preview/690/207/730/monument-india-new-delhi-qutub-minar.jpg',
+                        api: prefix+'India'+suffix,
+                        label: 'India',
                       ),
                     ),
                   ],
@@ -142,10 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ));
     },
-  ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-      ),
-    );
+  );
   }
 }
