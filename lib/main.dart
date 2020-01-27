@@ -14,31 +14,40 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MainPage(title: 'Walls'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({this.title});
   final String title;
-
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
-class _MyHomePageState extends State<MyHomePage> {
+
+class _MainPageState extends State<MainPage> {
+
+  final List<Tab> myTabs = <Tab>[
+    Tab(text: 'LEFT'),
+    Tab(text: 'RIGHT'),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    return DefaultTabController(
+        length: myTabs.length,
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              widget.title,
+            ),
+            bottom: TabBar(
+              tabs: myTabs,
+            ),
+          ),
 
-    String prefix = 'https://pixabay.com/api/?key=15000771-9bb9ac0763d9ad28b6694f6d2&q=';
-    String suffix = '&image_type=photo&page=';
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      drawer: Drawer(
+          drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -71,81 +80,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-      return SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: 20.0,
-          ),
-          child: IntrinsicHeight(
-            child: Column(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: ImageCard(
-                            link: 'https://wallpaperaccess.com/full/200447.jpg',
-                            api: prefix+'Nature'+suffix,
-                            label: 'Nature',
-                          ),
-                        ),
-                        Expanded(
-                          child: ImageCard(
-                            link: 'https://wallpapercave.com/wp/wp2679565.jpg',
-                            api: prefix+'Abstract'+suffix,
-                            label: 'Abstract',
-                          ),
-                      ),
-                  ],
+
+          body: TabBarView(
+            children: myTabs.map((Tab tab) {
+              final String label = tab.text.toLowerCase();
+              return Center(
+                child: Text(
+                  'This is the $label tab',
+                  style: const TextStyle(fontSize: 36),
                 ),
-              ],
-            ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    ImageCard(
-                      link: 'https://www.digitalcare.org/wp-content/uploads/2016/11/Free-Desktop-Wallpaper-feature-696x465.jpg',
-                      api: prefix+'Featured'+suffix,
-                      label: 'Featured',
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: ImageCard(
-                        link: 'https://wallpaperaccess.com/full/184117.jpg',
-                        api: prefix+'Cars'+suffix,
-                        label: 'Cars',
-                      ),
-                    ),
-                    //TODO: Add few more cards
-                    Expanded(
-                      child: ImageCard(
-                        link: 'https://wallpaperaccess.com/full/184117.jpg',
-                        api: prefix+'Cars'+suffix,
-                        label: 'Cars',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          ]
+              );
+            }).toList(),
           ),
         ),
-      ));
-    },
-  ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-      ),
     );
   }
 }
