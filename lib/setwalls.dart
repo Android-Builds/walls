@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper/wallpaper.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -79,6 +79,15 @@ class _SetWallpaperState extends State<SetWallpaper> {
                     setState(() {
                       downloading = false;
                       home = home;
+                      Fluttertoast.showToast(
+                        msg: "Wallpaper Set",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        fontSize: 14.0
+                      );
                     });
                     print("Task Done");
                     }, 
@@ -95,14 +104,80 @@ class _SetWallpaperState extends State<SetWallpaper> {
                 backgroundColor: Colors.blue,
                 label: 'Lockscreen',
                 labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () => print('SECOND CHILD'),
+                onTap: () {
+                  progressString =
+                    Wallpaper.ImageDownloadProgress(widget.link);
+                  progressString.listen((data) {
+                    setState(() {
+                      res = data;
+                      downloading = true;
+                    });
+                    print("DataReceived: " + data);
+                  }, 
+                  onDone: () async {
+                    lock = await Wallpaper.lockScreen();
+                    setState(() {
+                      downloading = false;
+                      lock = lock;
+                      Fluttertoast.showToast(
+                        msg: "Lockscreen Set",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        fontSize: 14.0
+                      );
+                    });
+                    print("Task Done");
+                    }, 
+                  onError: (error) {
+                    setState(() {
+                      downloading = false;
+                    });
+                    print("Some Error");
+                  });
+                }
               ),
               SpeedDialChild(
                 child: Icon(Icons.system_update_alt),
                 backgroundColor: Colors.green,
                 label: 'Both',
                 labelStyle: TextStyle(fontSize: 18.0),
-                onTap: () => print('THIRD CHILD'),
+                onTap: () {
+                  progressString =
+                    Wallpaper.ImageDownloadProgress(widget.link);
+                  progressString.listen((data) {
+                    setState(() {
+                      res = data;
+                      downloading = true;
+                    });
+                    print("DataReceived: " + data);
+                  }, 
+                  onDone: () async {
+                    both = await Wallpaper.bothScreen();
+                    setState(() {
+                      downloading = false;
+                      both = both;
+                      Fluttertoast.showToast(
+                        msg: "Wallpaper and Lockscreen Set",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIos: 1,
+                        backgroundColor: Colors.white,
+                        textColor: Colors.black,
+                        fontSize: 14.0
+                      );
+                    });
+                    print("Task Done");
+                    }, 
+                  onError: (error) {
+                    setState(() {
+                      downloading = false;
+                    });
+                    print("Some Error");
+                  });
+                }
               ),
             ],
           ),
