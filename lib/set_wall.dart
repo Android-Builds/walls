@@ -6,6 +6,8 @@ void main() =>
     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: SetWall()));
 
 class SetWall extends StatefulWidget {
+  SetWall({this.link});
+  final String link;
   @override
   _SetWall createState() => _SetWall();
 }
@@ -19,12 +21,6 @@ class _SetWall extends State<SetWall> {
   Stream<String> progressString;
   String res;
   bool downloading = false;
-  List<String> images = [
-    "https://images.pexels.com/photos/2772854/pexels-photo-2772854.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    "https://images.pexels.com/photos/1368388/pexels-photo-1368388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    "https://images.pexels.com/photos/2417842/pexels-photo-2417842.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-    "https://images.pexels.com/photos/2406776/pexels-photo-2406776.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-  ];
   var result = "Waiting to set wallpaper";
 
   @override
@@ -35,249 +31,74 @@ class _SetWall extends State<SetWall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          margin: EdgeInsets.only(top: 20),
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
-          height: MediaQuery
-              .of(context)
-              .size
-              .height,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Image.network(
-                      images[0],
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      left: 10,
-                      bottom: 0,
-                      child: RaisedButton(
-                        onPressed: () {
-                          progressString =
-                              Wallpaper.ImageDownloadProgress(images[0]);
-                          progressString.listen((data) {
-                            setState(() {
-                              res = data;
-                              downloading = true;
-                            });
-                            print("DataReceived: " + data);
-                          }, onDone: () async {
-                            home = await Wallpaper.homeScreen();
-                            setState(() {
-                              downloading = false;
-                              home = home;
-                            });
-                            print("Task Done");
-                          }, onError: (error) {
-                            setState(() {
-                              downloading = false;
-                            });
-                            print("Some Error");
-                          });
-                        },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
-                                ],
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(home, style: TextStyle(fontSize: 16)),
-                          ),
+      body: Center(
+        child:
+          Stack(
+            children: <Widget>[
+              FittedBox(
+                fit: BoxFit.fill,
+                child: Image.network(
+                  widget.link,
+                  // fit: BoxFit.fill,
+                ),
+              ),
+              Positioned(
+                left: 10,
+                bottom: 0,
+                child: RaisedButton(
+                  onPressed: () {
+                    progressString =
+                        Wallpaper.ImageDownloadProgress(widget.link);
+                    progressString.listen((data) {
+                      setState(() {
+                        res = data;
+                        downloading = true;
+                      });
+                      print("DataReceived: " + data);
+                    }, onDone: () async {
+                      home = await Wallpaper.homeScreen();
+                      setState(() {
+                        downloading = false;
+                        home = home;
+                      });
+                      print("Task Done");
+                    }, onError: (error) {
+                      setState(() {
+                        downloading = false;
+                      });
+                      print("Some Error");
+                    });
+                  },
+                  textColor: Colors.white,
+                  padding: const EdgeInsets.all(0.0),
+                  child: Center(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF0D47A1),
+                            Color(0xFF1976D2),
+                            Color(0xFF42A5F5),
+                          ],
                         ),
                       ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(home, style: TextStyle(fontSize: 16)),
                     ),
-                    downDialog()
-                  ],
+                  ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Image.network(
-                      images[1],
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      left: 10,
-                      bottom: 0,
-                      child: RaisedButton(
-                        onPressed: () {
-                          progressString =
-                              Wallpaper.ImageDownloadProgress(images[1]);
-                          progressString.listen((data) {
-                            setState(() {
-                              res = data;
-                              downloading = true;
-                            });
-                            print("DataReceived: " + data);
-                          }, onDone: () async {
-                            lock = await Wallpaper.lockScreen();
-                            setState(() {
-                              downloading = false;
-                              lock = lock;
-                            });
-                            print("Task Done");
-                          }, onError: (error) {
-                            setState(() {
-                              downloading = false;
-                            });
-                            print("Some Error");
-                          });
-                        },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
-                                ],
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(lock, style: TextStyle(fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    downDialog()
-                  ],
-                ),
-                Stack(
-                  children: <Widget>[
-                    Image.network(
-                      images[2],
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      left: 10,
-                      bottom: 0,
-                      child: RaisedButton(
-                        onPressed: () {
-                          progressString =
-                              Wallpaper.ImageDownloadProgress(images[2]);
-                          progressString.listen((data) {
-                            setState(() {
-                              res = data;
-                              downloading = true;
-                            });
-                            print("DataReceived: " + data);
-                          }, onDone: () async {
-                            both = await Wallpaper.bothScreen();
-                            setState(() {
-                              downloading = false;
-                              both = both;
-                            });
-                            print("Task Done");
-                          }, onError: (error) {
-                            setState(() {
-                              downloading = false;
-                            });
-                            print("Some Error");
-                          });
-                        },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
-                                ],
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(both, style: TextStyle(fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    downDialog()
-                  ],
-                ),
-                Stack(
-                  children: <Widget>[
-                    Image.network(
-                      images[3],
-                      fit: BoxFit.fitWidth,
-                    ),
-                    Positioned(
-                      left: 10,
-                      bottom: 0,
-                      child: RaisedButton(
-                        onPressed: () {
-                          progressString =
-                              Wallpaper.ImageDownloadProgress(images[3]);
-                          progressString.listen((data) {
-                            setState(() {
-                              res = data;
-                              downloading = true;
-                            });
-                            print("DataReceived: " + data);
-                          }, onDone: () async {
-                            both = await Wallpaper.systemScreen();
-                            setState(() {
-                              downloading = false;
-                              system = system;
-                            });
-                            print("Task Done");
-                          }, onError: (error) {
-                            setState(() {
-                              downloading = false;
-                            });
-                            print("Some Error");
-                          });
-                        },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0.0),
-                        child: Center(
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
-                                ],
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(system, style: TextStyle(fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                    ),
-                    downDialog()
-                  ],
-                ),
-              ],
-            ),
-          )),
+              ),
+              downDialog()
+            ],
+          ),
+      ),
     );
   }
 
   Widget downDialog() {
     return Positioned(
-      top: 200,
-      left: 70,
+      top: 250,
+      left: 100,
       child: downloading
           ? Container(
         height: 120.0,

@@ -23,6 +23,7 @@ dependencies:
   flutter_icons: ^1.0.0+1
   cached_network_image: ^2.0.0
   wallpaper: ^1.0.0
+  flutter_speed_dial: ^1.2.5
 
 
   # The following adds the Cupertino Icons font to your application.
