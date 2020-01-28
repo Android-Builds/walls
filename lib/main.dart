@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:walls/constants.dart';
 import 'package:walls/home_page.dart';
+import 'package:walls/set_wall.dart';
 import 'package:walls/wall_cards.dart';
 import 'nav_bar_list.dart';
 
@@ -78,6 +79,17 @@ class _MainPageState extends State<MainPage> {
                 NavBarList(
                   label: 'Anime',
                 ),
+                ListTile(
+                  title: Text('Hi'),
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SetWall(),
+                        ),
+                      );
+                  },
+                )
               ],
             ),
           ),

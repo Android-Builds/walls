@@ -69,7 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         label: 'Cars',
                       ),
                     ),
-                    //TODO: Add few more cards
                     Expanded(
                       child: ImageCard(
                         link: 'https://c0.wallpaperflare.com/preview/690/207/730/monument-india-new-delhi-qutub-minar.jpg',
