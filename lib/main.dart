@@ -5,19 +5,28 @@ import 'package:walls/home_page.dart';
 import 'package:walls/set_wall.dart';
 import 'package:walls/wall_cards.dart';
 import 'nav_bar_list.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+Brightness brightness = Brightness.light;
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return new DynamicTheme(
+      defaultBrightness: Brightness.light,
+      data: (brightness) => new ThemeData(
+        primarySwatch: Colors.indigo,
+        brightness: brightness,
       ),
-      home: MainPage(title: 'Walls'),
+      themedWidgetBuilder: (context, theme) {
+        return new MaterialApp(
+          title: 'Flutter Demo',
+          theme: theme,
+          home: new MainPage(title: 'Walls'),
+        );
+      }
     );
   }
 }
@@ -35,6 +44,8 @@ class _MainPageState extends State<MainPage> {
     Tab(text: 'Featured'),
     Tab(text: 'Categories'),
   ];
+
+  bool darkModeIsOn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +100,32 @@ class _MainPageState extends State<MainPage> {
                         ),
                       );
                   },
-                )
+                ),
+                ListTile(
+                  trailing: Switch(
+                  value: darkModeIsOn,
+                    onChanged: (bool value) {
+                      setState(() {
+                        DynamicTheme.
+                        of(context).setBrightness(
+                          Theme.of(context).brightness == 
+                          Brightness.dark? Brightness
+                          .light: Brightness.dark);
+                        if(darkModeIsOn == true){
+                          darkModeIsOn = false;
+                        }
+                        else {
+                          brightness = Brightness.dark;
+                          darkModeIsOn = true;
+                        }
+                      });
+                      print('Switched');
+                    }, 
+                  ),
+                  leading: Text(
+                    'Dark Mode'
+                  ),
+                ),
               ],
             ),
           ),

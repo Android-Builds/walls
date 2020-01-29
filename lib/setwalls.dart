@@ -37,8 +37,8 @@ class _SetWallpaperState extends State<SetWallpaper> {
             ),
             SpeedDial(
             // both default to 16
-              marginRight: 18,
-              marginBottom: 20,
+              marginRight: 30,
+              marginBottom: 30,
               animatedIcon: AnimatedIcons.menu_close,
               animatedIconTheme: IconThemeData(size: 22.0),
               // this is ignored if animatedIcon is non null
@@ -47,23 +47,22 @@ class _SetWallpaperState extends State<SetWallpaper> {
               // If true user is forced to close dial manually
               // by tapping main button and overlay is not rendered.
               closeManually: false,
-              curve: Curves.bounceIn,
-              overlayColor: Colors.black,
-              overlayOpacity: 0.5,
-              onOpen: () => print('OPENING DIAL'),
-              onClose: () => print('DIAL CLOSED'),
+              curve: Curves.easeInToLinear,
+              overlayColor: Colors.white,
+              overlayOpacity: 0.6,
               tooltip: 'Speed Dial',
               heroTag: 'speed-dial-hero-tag',
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.white,
               elevation: 8.0,
+              animationSpeed: 100,
               shape: CircleBorder(),
               children: [
               SpeedDialChild(
                 child: Icon(Icons.wallpaper),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.black,
                 label: 'Wallpaper',
-                labelStyle: TextStyle(fontSize: 18.0),
+                labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
                     Wallpaper.ImageDownloadProgress(widget.link);
@@ -101,9 +100,9 @@ class _SetWallpaperState extends State<SetWallpaper> {
               ),
               SpeedDialChild(
                 child: Icon(Icons.lock),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.black,
                 label: 'Lockscreen',
-                labelStyle: TextStyle(fontSize: 18.0),
+                labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
                     Wallpaper.ImageDownloadProgress(widget.link);
@@ -141,9 +140,9 @@ class _SetWallpaperState extends State<SetWallpaper> {
               ),
               SpeedDialChild(
                 child: Icon(Icons.system_update_alt),
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.black,
                 label: 'Both',
-                labelStyle: TextStyle(fontSize: 18.0),
+                labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
                     Wallpaper.ImageDownloadProgress(widget.link);
@@ -194,26 +193,24 @@ class _SetWallpaperState extends State<SetWallpaper> {
     left: 120,
     child: downloading
       ? Container(
-      height: 120.0,
-      width: 200.0,
-      child: Card(
-        color: Colors.black,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircularProgressIndicator(),
-            SizedBox(height: 20.0),
-            Text(
-              "Downloading File : $res",
-              style: TextStyle(color: Colors.white),
-            )
-          ],
+        height: 150.0,
+        width: 200.0,
+        child: Card(
+          color: Colors.black,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CircularProgressIndicator(),
+              SizedBox(height: 20.0),
+              Text(
+                "Downloading File : $res",
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
-      ),
-    )
+      )
       : Text(""),
     );
   }
-
-
 }
