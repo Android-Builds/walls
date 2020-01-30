@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:walls/about.dart';
 import 'package:walls/constants.dart';
 import 'package:walls/home_page.dart';
 import 'package:walls/set_wall.dart';
 import 'package:walls/wall_cards.dart';
 import 'nav_bar_list.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 
 void main() => runApp(MyApp());
-
-Brightness brightness = Brightness.light;
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new DynamicTheme(
-      defaultBrightness: Brightness.light,
-      data: (brightness) => new ThemeData(
-        primarySwatch: Colors.indigo,
-        brightness: brightness,
+  return MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.light,
       ),
-      themedWidgetBuilder: (context, theme) {
-        return new MaterialApp(
-          title: 'Flutter Demo',
-          theme: theme,
-          home: new MainPage(title: 'Walls'),
-        );
-      }
+    darkTheme: ThemeData(
+      brightness: Brightness.dark,
+      ),
+      home: MainPage(title: 'Walls',),
     );
   }
 }
@@ -102,30 +95,16 @@ class _MainPageState extends State<MainPage> {
                   },
                 ),
                 ListTile(
-                  trailing: Switch(
-                  value: darkModeIsOn,
-                    onChanged: (bool value) {
-                      setState(() {
-                        DynamicTheme.
-                        of(context).setBrightness(
-                          Theme.of(context).brightness == 
-                          Brightness.dark? Brightness
-                          .light: Brightness.dark);
-                        if(darkModeIsOn == true){
-                          darkModeIsOn = false;
-                        }
-                        else {
-                          brightness = Brightness.dark;
-                          darkModeIsOn = true;
-                        }
-                      });
-                      print('Switched');
-                    }, 
-                  ),
-                  leading: Text(
-                    'Dark Mode'
-                  ),
-                ),
+                  title: Text('About'),
+                  onTap: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => AboutPage(),
+                        ),
+                      );
+                  },
+                )
               ],
             ),
           ),

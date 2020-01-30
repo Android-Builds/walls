@@ -61,7 +61,9 @@ class _SetWallpaperState extends State<SetWallpaper> {
               SpeedDialChild(
                 child: Icon(Icons.wallpaper),
                 backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
                 label: 'Wallpaper',
+                labelBackgroundColor: Theme.of(context).backgroundColor,
                 labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
@@ -101,7 +103,9 @@ class _SetWallpaperState extends State<SetWallpaper> {
               SpeedDialChild(
                 child: Icon(Icons.lock),
                 backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
                 label: 'Lockscreen',
+                labelBackgroundColor: Theme.of(context).backgroundColor,
                 labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
@@ -141,7 +145,9 @@ class _SetWallpaperState extends State<SetWallpaper> {
               SpeedDialChild(
                 child: Icon(Icons.system_update_alt),
                 backgroundColor: Colors.black,
+                foregroundColor: Colors.white,
                 label: 'Both',
+                labelBackgroundColor: Theme.of(context).backgroundColor,
                 labelStyle: TextStyle(fontSize: 12.0),
                 onTap: () {
                   progressString =
