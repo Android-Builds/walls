@@ -64,36 +64,40 @@ class AboutPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0,
-                    horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.black,
-                  ),
-                  title: Text(
-                    'zxyron0@gmail.com',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'SourceSansPro'
+              FlatButton(
+                child: Card(
+                  margin: EdgeInsets.symmetric(vertical: 10.0,
+                      horizontal: 25.0),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.email,
+                      color: Colors.black,
+                    ),
+                    title: Text(
+                      'zxyron0@gmail.com',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'SourceSansPro'
+                      ),
                     ),
                   ),
                 ),
               ),
-              Card(
-                margin: EdgeInsets.symmetric(vertical: 10.0,
-                    horizontal: 25.0),
-                child: ListTile(
-                  leading: Icon(
-                    Telegram.telegram,
-                    color: Colors.black,
-                  ),
-                  title: Text(
-                    'xyron',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'SourceSansPro'
+              FlatButton(
+                child: Card(
+                  margin: EdgeInsets.symmetric(vertical: 10.0,
+                      horizontal: 25.0),
+                  child: ListTile(
+                    leading: Icon(
+                      Telegram.telegram,
+                      color: Colors.black,
+                    ),
+                    title: Text(
+                      'xyron',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'SourceSansPro'
+                      ),
                     ),
                   ),
                 ),
