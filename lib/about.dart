@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'custom/telegram_icons.dart';
@@ -67,7 +68,8 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               FlatButton(
-                onPressed: (){
+                onPressed: () async {
+                  await FlutterEmailSender.send(email);
                 },
                 child: Card(
                   margin: EdgeInsets.symmetric(vertical: 10.0,
@@ -117,12 +119,19 @@ class AboutPage extends StatelessWidget {
   }
 
   _launchURL(var url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
+
+  final Email email = Email(
+    body: 'Email body',
+    subject: 'Email subject',
+    recipients: ['zxyron0@gmail.com'],
+    //isHTML: false,
+  );
   
 }
 
