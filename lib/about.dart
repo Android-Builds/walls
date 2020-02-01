@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'custom/telegram_icons.dart';
 
 class AboutPage extends StatelessWidget {
@@ -44,18 +46,18 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               FlatButton(onPressed: (){
-                
+                _launchURL('https://www.facebook.com/insane.nihilist');
               },
                 child: Card(
                   margin: EdgeInsets.symmetric(vertical: 10.0, 
                       horizontal: 25.0),
                   child: ListTile(
                     leading: Icon(
-                      Icons.phone,
+                      FontAwesome.facebook,
                       color: Colors.black,
                     ),
                     title: Text(
-                      '',
+                      'Debjit',
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'SourceSansPro'
@@ -65,6 +67,8 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               FlatButton(
+                onPressed: (){
+                },
                 child: Card(
                   margin: EdgeInsets.symmetric(vertical: 10.0,
                       horizontal: 25.0),
@@ -84,6 +88,9 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               FlatButton(
+                onPressed: (){
+                  _launchURL('https://t.me/xyron');
+                },
                 child: Card(
                   margin: EdgeInsets.symmetric(vertical: 10.0,
                       horizontal: 25.0),
@@ -108,5 +115,14 @@ class AboutPage extends StatelessWidget {
       ),
     );
   }
+
+  _launchURL(var url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+  
 }
 
