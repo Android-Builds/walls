@@ -6,7 +6,6 @@ import 'package:walls/demo_swiper.dart';
 import 'package:walls/home_page.dart';
 import 'package:walls/set_wall.dart';
 import 'package:walls/wall_cards.dart';
-import 'package:walls/wall_image.dart';
 import 'nav_bar_list.dart';
 
 void main() => runApp(MyApp());
@@ -16,9 +15,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
   return MaterialApp(
     theme: ThemeData(
+      backgroundColor: Colors.white,
       brightness: Brightness.light,
       ),
     darkTheme: ThemeData(
+      backgroundColor: Colors.black,
       brightness: Brightness.dark,
       ),
       home: MainPage(title: 'Walls',),

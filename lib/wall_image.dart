@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:parallax_image/parallax_image.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class WallImage extends StatefulWidget {
@@ -8,7 +7,6 @@ class WallImage extends StatefulWidget {
 }
 
 class WallImageState extends State<WallImage> {
-  final _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {

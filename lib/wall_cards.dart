@@ -6,7 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:wallpaper/wallpaper.dart';
-import 'package:walls/setwalls.dart';
+import 'package:walls/constants.dart';
 import 'dart:async';
 
 class WallCards extends StatefulWidget {
@@ -27,32 +27,16 @@ class _WallCardsState extends State<WallCards> {
   String res;
   bool downloading = false;
   var result = "Waiting to set wallpaper";
-
   Stream<String> progressString;
-
-  SwiperController controller;
-
-  List<bool> autoplayes;
-
-  List<SwiperController> controllers;
 
   @override
   void initState(){
     super.initState();
     this.getJsonData();
-
-    controller = new SwiperController();
-    autoplayes = new List()
-      ..length = 10
-      ..fillRange(0, 10, false);
-    controllers = new List()
-      ..length = 10
-      ..fillRange(0, 10, new SwiperController());
   }
 
   Future getJsonData() async{
     var response;
-    
     for(int i=1; i<=5; i++){
       response = await http.get(
         Uri.encodeFull(widget.api+i.toString()),
@@ -69,34 +53,6 @@ class _WallCardsState extends State<WallCards> {
 
   @override 
   Widget build(BuildContext context) {
-
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
-    final double itemWidth = size.width / 2;
-    int itemCount = item.length;
-
-  Future.delayed(const Duration(seconds: 3), () {
-    setState(() {
-      return Container(
-        child: Swiper(
-          itemCount: 40,
-          itemBuilder: (BuildContext context, int index) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
-              child: CachedNetworkImage(
-                placeholder: (context, url) => LinearProgressIndicator(),
-                imageUrl: item[index]['largeImageURL'],
-                fit: BoxFit.cover,
-              ),
-            );
-          },
-          viewportFraction: 0.8,
-          scale: 0.9,
-        ),
-      );
-    });
-  });
-
   // return GridView.count(
   //   crossAxisCount: 1,
   //   // crossAxisSpacing: 5,
@@ -141,7 +97,7 @@ class _WallCardsState extends State<WallCards> {
             print(wallIndex);
           },
           containerHeight: 100.0,
-          itemCount: 40,
+          itemCount: 20,
           itemBuilder: (BuildContext context, int index) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
@@ -157,201 +113,154 @@ class _WallCardsState extends State<WallCards> {
         ),
       ),
       SpeedDial(
-              marginRight: 180.0,
-              marginBottom: 30,
-              animatedIcon: AnimatedIcons.menu_close,
-              animatedIconTheme: IconThemeData(size: 22.0),
-              visible: true,
-              closeManually: false,
-              curve: Curves.easeInToLinear,
-              overlayColor: Colors.white,
-              overlayOpacity: 0.6,
-              tooltip: 'Speed Dial',
-              heroTag: 'speed-dial-hero-tag',
-              //TODO: Change Backgroud color of speeddial
-              backgroundColor: Colors.black,
-              foregroundColor: Colors.white,
-              elevation: 8.0,
-              animationSpeed: 100,
-              shape: CircleBorder(),
-              children: [
-              SpeedDialChild(
-                child: Icon(Icons.wallpaper),
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                label: 'Wallpaper',
-                labelBackgroundColor: Theme.of(context).backgroundColor,
-                labelStyle: TextStyle(fontSize: 12.0),
-                onTap: () {
-                  progressString =
-                    Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
-                  progressString.listen((data) {
-                    setState(() {
-                      res = data;
-                      downloading = true;
-                    });
-                    print("DataReceived: " + data);
-                  }, 
-                  onDone: () async {
-                    home = await Wallpaper.homeScreen();
-                    setState(() {
-                      downloading = false;
-                      home = home;
-                      Fluttertoast.showToast(
-                        msg: "Wallpaper Set",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIos: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 14.0
-                      );
-                    });
-                    print("Task Done");
-                    }, 
-                  onError: (error) {
-                    setState(() {
-                      downloading = false;
-                    });
-                    print("Some Error");
-                  });
-                }
-              ),
-              SpeedDialChild(
-                child: Icon(Icons.lock),
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                label: 'Lockscreen',
-                labelBackgroundColor: Theme.of(context).backgroundColor,
-                labelStyle: TextStyle(fontSize: 12.0),
-                onTap: () {
-                  progressString =
-                    Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
-                  progressString.listen((data) {
-                    setState(() {
-                      res = data;
-                      downloading = true;
-                    });
-                    print("DataReceived: " + data);
-                  }, 
-                  onDone: () async {
-                    lock = await Wallpaper.lockScreen();
-                    setState(() {
-                      downloading = false;
-                      lock = lock;
-                      Fluttertoast.showToast(
-                        msg: "Lockscreen Set",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIos: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 14.0
-                      );
-                    });
-                    print("Task Done");
-                    }, 
-                  onError: (error) {
-                    setState(() {
-                      downloading = false;
-                    });
-                    print("Some Error");
-                  });
-                }
-              ),
-              SpeedDialChild(
-                child: Icon(Icons.system_update_alt),
-                backgroundColor: Colors.black,
-                foregroundColor: Colors.white,
-                label: 'Both',
-                labelBackgroundColor: Theme.of(context).backgroundColor,
-                labelStyle: TextStyle(fontSize: 12.0),
-                onTap: () {
-                  progressString =
-                    Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
-                  progressString.listen((data) {
-                    setState(() {
-                      res = data;
-                      downloading = true;
-                    });
-                    print("DataReceived: " + data);
-                  }, 
-                  onDone: () async {
-                    both = await Wallpaper.bothScreen();
-                    setState(() {
-                      downloading = false;
-                      both = both;
-                      Fluttertoast.showToast(
-                        msg: "Wallpaper and Lockscreen Set",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIos: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 14.0
-                      );
-                    });
-                    print("Task Done");
-                    }, 
-                  onError: (error) {
-                    setState(() {
-                      downloading = false;
-                    });
-                    print("Some Error");
-                  });
-                }
-              ),
-            ],
+        marginRight: 180.0,
+        marginBottom: 30,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 22.0),
+        visible: true,
+        closeManually: false,
+        curve: Curves.easeInToLinear,
+        overlayColor: Colors.white,
+        overlayOpacity: 0.6,
+        tooltip: 'Speed Dial',
+        heroTag: 'speed-dial-hero-tag',
+        backgroundColor: Theme.of(context).backgroundColor,
+        foregroundColor: getColor(context),
+        elevation: 8.0,
+        animationSpeed: 100,
+        shape: CircleBorder(),
+        children: [
+          SpeedDialChild(
+            child: Icon(Icons.wallpaper),
+            backgroundColor: Theme.of(context).backgroundColor,
+            foregroundColor: getColor(context),
+            label: 'Wallpaper',
+            labelBackgroundColor: Theme.of(context).backgroundColor,
+            labelStyle: TextStyle(fontSize: 12.0),
+            onTap: () {
+              progressString =
+                      Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
+              progressString.listen((data) {
+                setState(() {
+                  res = data;
+                  downloading = true;
+                });
+                print("DataReceived: " + data);
+              },
+              onDone: () async {
+                home = await Wallpaper.homeScreen();
+                setState(() {
+                  downloading = false;
+                  home = home;
+                  Fluttertoast.showToast(
+                    msg: "Wallpaper Set",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIos: 1,
+                    backgroundColor: Colors.white,
+                    textColor: Colors.black,
+                    fontSize: 14.0
+                  );
+                });
+                print("Task Done");
+              },
+              onError: (error) {
+                setState(() {
+                  downloading = false;
+                });
+                print("Some Error");
+              });
+            }
           ),
-          downDialog(),
-    ]
-  );
-
-  // return new Scaffold(
-  //     body: new Swiper(
-  //       loop: false,
-  //       itemCount: 1,
-  //       controller: controller,
-  //       pagination: new SwiperPagination(),
-  //       itemBuilder: (BuildContext context, int index) {
-  //         return new Column(
-  //           children: <Widget>[
-  //             new SizedBox(
-  //               child: new Swiper(
-  //                 controller: controllers[index],
-  //                 pagination: new SwiperPagination(),
-  //                 itemCount: itemCount,
-  //                 itemBuilder: (BuildContext context, int index) {
-  //                   return new Container(
-  //                     child: Image.network(item[index]['largeImageURL']),
-  //                   );
-  //                 },
-  //                 autoplay: autoplayes[index],
-  //               ),
-  //               height: 300.0,
-  //             ),
-  //             new RaisedButton(
-  //               onPressed: () {
-  //                 setState(() {
-  //                   autoplayes[index] = true;
-  //                 });
-  //               },
-  //               child: new Text("Start autoplay"),
-  //             ),
-  //             new RaisedButton(
-  //               onPressed: () {
-  //                 setState(() {
-  //                   autoplayes[index] = false;
-  //                 });
-  //               },
-  //               child: new Text("End autoplay"),
-  //             ),
-  //             new Text("is autoplay: ${autoplayes[index]}")
-  //           ],
-  //         );
-  //       },
-  //     ),
-  //   );
+          SpeedDialChild(
+            child: Icon(Icons.lock),
+            backgroundColor: Theme.of(context).backgroundColor,
+            foregroundColor: getColor(context),
+            label: 'Lockscreen',
+            labelBackgroundColor: Theme.of(context).backgroundColor,
+            labelStyle: TextStyle(fontSize: 12.0),
+            onTap: () {
+              progressString =
+                Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
+                progressString.listen((data) {
+                  setState(() {
+                    res = data;
+                    downloading = true;
+                  });
+                  print("DataReceived: " + data);
+                }, 
+                onDone: () async {
+                  lock = await Wallpaper.lockScreen();
+                  setState(() {
+                    downloading = false;
+                    lock = lock;
+                    Fluttertoast.showToast(
+                      msg: "Lockscreen Set",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos: 1,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.black,
+                      fontSize: 14.0
+                    );
+                  });
+                  print("Task Done");
+                }, 
+                onError: (error) {
+                  setState(() {
+                    downloading = false;
+                  });
+                  print("Some Error");
+                });
+              }
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.system_update_alt),
+              backgroundColor: Theme.of(context).backgroundColor,
+              foregroundColor: getColor(context),
+              label: 'Both',
+              labelBackgroundColor: Theme.of(context).backgroundColor,
+              labelStyle: TextStyle(fontSize: 12.0),
+              onTap: () {
+                progressString =
+                  Wallpaper.ImageDownloadProgress(item[wallIndex]['largeImageURL']);
+                progressString.listen((data) {
+                  setState(() {
+                    res = data;
+                    downloading = true;
+                  });
+                  print("DataReceived: " + data);
+                }, 
+                onDone: () async {
+                  both = await Wallpaper.bothScreen();
+                  setState(() {
+                    downloading = false;
+                    both = both;
+                    Fluttertoast.showToast(
+                      msg: "Wallpaper and Lockscreen Set",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos: 1,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.black,
+                      fontSize: 14.0
+                    );
+                  });
+                  print("Task Done");
+                  }, 
+                onError: (error) {
+                  setState(() {
+                    downloading = false;
+                  });
+                  print("Some Error");
+                });
+              }
+            ),
+          ],
+        ),
+        downDialog(),
+      ]
+    );
   }
 
   Widget downDialog() {
