@@ -4,7 +4,6 @@ import 'package:walls/about.dart';
 import 'package:walls/constants.dart';
 import 'package:walls/demo_swiper.dart';
 import 'package:walls/home_page.dart';
-import 'package:walls/set_wall.dart';
 import 'package:walls/wall_cards.dart';
 import 'nav_bar_list.dart';
 
@@ -89,12 +88,6 @@ class _MainPageState extends State<MainPage> {
                 ListTile(
                   title: Text('Hi'),
                   onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SetWall(),
-                        ),
-                      );
                   },
                 ),
                 ListTile(
